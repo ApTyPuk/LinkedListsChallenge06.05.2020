@@ -6,15 +6,35 @@ import static com.Artur.Album.albums;
 
 public class PlayList {
 
-    private static LinkedList<Song> playList = new LinkedList<Song>();
+    private static LinkedList<Song> playList;
 
-    public boolean addSongToPlayList(String nameSong){
+    public PlayList() {
+        playList = new LinkedList<Song>();
+    }
+
+    public void addSongToPlayList(String nameSong){
+        Song song = returnSong(nameSong);
+//        System.out.println(song.getTitle() + " - Trying to add to PlayList!!!!!!!!");
         if(returnSongsAlbum(nameSong) != null){
             playList.add(song);
-            return true;
+//            System.out.println(song.getTitle() +" -> added to PlayList.");
         }
+    }
 
-        return false;
+    public Song returnSong(String nameSong){
+        for(int i = 0; i < albums.size(); i++){
+            Album album = albums.get(i);
+
+            for(int j = 0; j < album.getSongArrayList().size(); j++){
+                Song song = album.getSongArrayList().get(j);
+                if(song.getTitle() == nameSong){
+//                    System.out.println("\nSong "+nameSong+" IS IN ALBUM: " + album.getAlbumName() );
+                    return song;
+                }
+            }
+        }
+//        System.out.println("\nSong not found.");
+        return null;
     }
 
     public Album returnSongsAlbum(String nameSong){
@@ -24,14 +44,21 @@ public class PlayList {
                 for(int j = 0; j < album.getSongArrayList().size(); j++){
                     Song song = album.getSongArrayList().get(j);
                     if(song.getTitle() == nameSong){
-                        System.out.println("\nSong "+nameSong+" IS IN ALBUM: " + album.getAlbumName() );
+//                        System.out.println("\nSong '"+nameSong+"' IS IN ALBUM: " + album.getAlbumName() );
                         return album;
                     }
                 }
-
             }
-        System.out.println("\nSong not found.");
+//        System.out.println("\nSong not found.");
         return null;
+    }
+
+    public void printPlayList(){
+        System.out.println("\nPlaylist song list:");
+        for(int i = 0; i< playList.size(); i++){
+            Song song = playList.get(i);
+            System.out.println("    "+(i+1)+". '"+song.getTitle()+"' from album: "+ returnSongsAlbum(song.getTitle()).getAlbumName());
+        }
     }
 
 }

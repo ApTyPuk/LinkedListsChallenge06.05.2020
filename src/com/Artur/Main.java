@@ -1,42 +1,43 @@
 package com.Artur;
 
-import static com.Artur.Album.albums;
+import static com.Artur.Album.*;
 
 public class Main {
 
     public static void main(String[] args) {
-        Album vesna = new Album("VESNA");
-        Album osen = new Album("OSEN");
-//        Album.addAlbum("VESNA");
+        Album.addAlbum("VESNA");
+        Album.addAlbum("OSEN");
+        findAlbum("VESNA").createSongAddToAlbum("Nebesa", "2:35");
+        findAlbum("VESNA").createSongAddToAlbum("Chudo", "1:24");
+        findAlbum("VESNA").createSongAddToAlbum("Nevesta", "9:58");
+        findAlbum("VESNA").createSongAddToAlbum("Sobibor", "6:25");
+        findAlbum("OSEN").createSongAddToAlbum("Kolibelnaya", "4:06");
 
-        Song song1 = new Song("Nebesa", "2:35");
-        Song song2 = new Song("Chudo", "1:24");
+        Song song_stest = new Song("Zhopa_Noviy_Gog", "0:55");
+        findAlbum("OSEN").addSongToAlbum(song_stest);
 
-//        Song.addSong("Nebesa", "2:35");
-//        Song.addSong("Chudo", "1:24");
-//        Song.addSong("Nevesta", "9:58");
-//        Song.addSong("Sobibor", "6:25");
-
-        vesna.addSongToAlbum(song1);
-        vesna.addSongToAlbum(song2);
-
-
-        vesna.findSong("Nebesa");
-        vesna.findSong("Chudo");
-        vesna.findSong("Nevesta");
-
-        vesna.printAlbumSongs();
-        osen.printAlbumSongs();
-
-        vesna.ifSongInAlbum("Nebesa");
+//        findAlbum("VESNA").printAlbumSongs();
+//        findAlbum("OSEN").printAlbumSongs();
 
         PlayList playlist = new PlayList();
-        playlist.returnSongsAlbum("Nebesa");
-
-        albums.add(vesna);
-
-        playlist.returnSongsAlbum("Nebesa");
-
+        playlist.addSongToPlayList("Nebesa");
+        playlist.addSongToPlayList("Chudo");
+        playlist.addSongToPlayList("Nevesta");
+        playlist.addSongToPlayList("Sobibor");
+        playlist.addSongToPlayList("Kolibelnaya");
+        playlist.addSongToPlayList(song_stest.getTitle());
+//        playlist.printPlayList();
 
     }
+
+    public static void menu(){
+        System.out.println("\nPlayer controls: \n"+
+                "   1 - Quit \n"+
+                "   2 - Next song. \n"+
+                "   3 - Previous song. \n"+
+                "   4 - Reply song. \n"+
+                "   5 - Playlist songs. \n"+
+                "   6 - Remove current song from playlist. ");
+    }
+
 }

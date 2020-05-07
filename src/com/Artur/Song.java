@@ -9,11 +9,11 @@ public class Song {
         this.duration = duration;
     }
 
-    public static Song addSong(String title, String duration){
-        Song song = new Song(title, duration);
-        System.out.println("Song created.");
-        return song;
-    }
+//    public static Song addSong(String title, String duration){
+//        Song song = new Song(title, duration);
+//        System.out.println(song.getTitle()+ " -> song created.");
+//        return song;
+//    }
 
     public String getTitle() {
         return title;

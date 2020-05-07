@@ -28,15 +28,24 @@ public class Album {
         albums.add(album);
         return album;
     }
-//    public void addAlbumToAlbumList(String nameAlbum){
-//        Album album = findAlbum(nameAlbum);
+
+//    public void addAlbumToAlbumList(){
+//        Album album = findAlbum(getAlbumName());
 //        albums.add(album);
 //    }
 
-    public boolean addSongToAlbum(Song nameSong){
-//        Song song = findSong(nameSong);
-        if(nameSong != null){
-            this.songArrayList.add(nameSong);
+    public void addSongToAlbum(Song nameSong){
+        this.songArrayList.add(nameSong);
+//        System.out.println(nameSong.getTitle() + " Added to Album -> "+ this.nameAlbum );
+    }
+
+
+    public boolean createSongAddToAlbum(String title, String duration){
+        Album album = findAlbum(getAlbumName());
+        if(findAlbum(getAlbumName()) != null){
+            Song song = new Song(title, duration);
+            album.getSongArrayList().add(song);
+//            System.out.println(title + " -> song added to album -> " + album.getAlbumName());
             return true;
         }
         return false;
@@ -51,8 +60,14 @@ public class Album {
 //        return false;
 //    }
 
+    public static void printAlbumList(){
+        for(int i = 0; i < albums.size(); i++){
+            System.out.println(albums.get(i).getAlbumName());
+        }
+    }
+
     public void printAlbumSongs(){
-        System.out.println("Printing song list for album: " + getAlbumName());
+        System.out.println("\nPrinting song list for album: " + getAlbumName());
 
         for(int i = 0; i<this.songArrayList.size(); i++){
             System.out.println("    "+ (i+1) + ". " + this.songArrayList.get(i).getTitle());
@@ -80,11 +95,10 @@ public class Album {
         return null;
     }
 
-    public Album findAlbum(String nameAlbum){
+    public static Album findAlbum(String nameAlbum){
         for(int i =0; i<albums.size(); i++){
             Album album = albums.get(i);
             if(album.getAlbumName() == nameAlbum ){
-                System.out.println("Album '"+nameAlbum+"'found");
                 return album;
             }
         }

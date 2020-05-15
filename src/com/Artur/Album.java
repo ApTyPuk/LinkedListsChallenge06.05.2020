@@ -1,26 +1,26 @@
 package com.Artur;
 
 import java.util.ArrayList;
-
+import java.util.List;
 
 public class Album {
     public static ArrayList<Album> albums = new ArrayList<Album>();
 
     private String nameAlbum;
-    private ArrayList<Song> songArrayList;
+    private ISongList songList;     //instance/object which will be created from Interface
 
 
     public Album(String name) {
         this.nameAlbum = name;
-        this.songArrayList = new ArrayList<Song>();
+        this.songList = new SongList();     //Declaring new object made fom SongList class implemented from Interface;
     }
 
     public String getAlbumName() {
         return nameAlbum;
     }
 
-    public ArrayList<Song> getSongArrayList() {
-        return songArrayList;
+    public ISongList getSongList() {
+        return songList;
     }
 
     public static Album addAlbum(String nameAlbum){
@@ -29,13 +29,8 @@ public class Album {
         return album;
     }
 
-//    public void addAlbumToAlbumList(){
-//        Album album = findAlbum(getAlbumName());
-//        albums.add(album);
-//    }
-
-    public void addSongToAlbum(Song nameSong){
-        this.songArrayList.add(nameSong);
+    public void addSong(Song nameSong){     //addSongToAlbum
+        this.songList.addSong(nameSong);
 //        System.out.println(nameSong.getTitle() + " Added to Album -> "+ this.nameAlbum );
     }
 
@@ -44,7 +39,7 @@ public class Album {
         Album album = findAlbum(getAlbumName());
         if(findAlbum(getAlbumName()) != null){
             Song song = new Song(title, duration);
-            album.getSongArrayList().add(song);
+            this.songList.addSong(song);
 //            System.out.println(title + " -> song added to album -> " + album.getAlbumName());
             return true;
         }
@@ -69,8 +64,8 @@ public class Album {
     public void printAlbumSongs(){
         System.out.println("\nPrinting song list for album: " + getAlbumName());
 
-        for(int i = 0; i<this.songArrayList.size(); i++){
-            System.out.println("    "+ (i+1) + ". " + this.songArrayList.get(i).getTitle());
+        for(int i = 0; i < songList.size(); i++){
+            System.out.println("    "+ (i+1) + ". " + this.songList.get(i).getTitle());
         }
 
     }
@@ -81,8 +76,8 @@ public class Album {
                 Album album = albums.get(i);
                 System.out.println(album.getAlbumName());
 
-                for(int j = 0; j < this.songArrayList.size(); j++){
-                    Song song = this.songArrayList.get(j);
+                for(int j = 0; j < this.songList.size(); j++){
+                    Song song = this.songList.get(j);
                     if(song.getTitle() == nameSong){
                         System.out.println("Song "+nameSong+" IS IN ALBUM");
                         return album;
@@ -106,14 +101,40 @@ public class Album {
     }
 
     public Song findSong(String nameSong){
-        for(int i = 0; i<this.songArrayList.size(); i++){
-            Song song = this.songArrayList.get(i);
-            if(song.getTitle() == nameSong){
-                return song;
-            }
+        if(this.songList.findSong(nameSong) != null){
+            return this.songList.findSong(nameSong);
         }
         return null;
     }
+
+
+
+
+
+    class SongList implements ISongList {
+        private List<Song> songList = new ArrayList<Song>();
+
+        public List<Song> getSongList() {
+            return songList;
+        }
+
+        @Override
+        public void addSong(Song nameSong) {
+            this.songList.add(nameSong);
+        }
+
+        @Override
+        public Song findSong(String nameSong) {
+            for(Song checkSong: this.songList){
+                if(checkSong.getTitle().equals(nameSong)){
+                    return checkSong;
+                }
+            }
+            return null;
+        }
+    }
+
+
 
 
 

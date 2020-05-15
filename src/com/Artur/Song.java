@@ -15,6 +15,15 @@ public class Song {
 //        return song;
 //    }
 
+
+    @Override
+    public String toString() {
+        return "Song{" +
+                "title='" + title + '\'' +
+                ", duration='" + duration + '\'' +
+                '}';
+    }
+
     public String getTitle() {
         return title;
     }

@@ -12,6 +12,10 @@ public class PlayList {
         playList = new LinkedList<Song>();
     }
 
+    public static LinkedList<Song> getPlayList() {
+        return playList;
+    }
+
     public void addSongToPlayList(String nameSong){
         Song song = returnSong(nameSong);
 //        System.out.println(song.getTitle() + " - Trying to add to PlayList!!!!!!!!");
@@ -25,8 +29,8 @@ public class PlayList {
         for(int i = 0; i < albums.size(); i++){
             Album album = albums.get(i);
 
-            for(int j = 0; j < album.getSongArrayList().size(); j++){
-                Song song = album.getSongArrayList().get(j);
+            for(int j = 0; j < album.getSongList().size(); j++){
+                Song song = album.getSongList().get(j);
                 if(song.getTitle() == nameSong){
 //                    System.out.println("\nSong "+nameSong+" IS IN ALBUM: " + album.getAlbumName() );
                     return song;
@@ -41,8 +45,8 @@ public class PlayList {
             for(int i = 0; i < albums.size(); i++){
                 Album album = albums.get(i);
 
-                for(int j = 0; j < album.getSongArrayList().size(); j++){
-                    Song song = album.getSongArrayList().get(j);
+                for(int j = 0; j < album.getSongList().size(); j++){
+                    Song song = album.getSongList().get(j);
                     if(song.getTitle() == nameSong){
 //                        System.out.println("\nSong '"+nameSong+"' IS IN ALBUM: " + album.getAlbumName() );
                         return album;
